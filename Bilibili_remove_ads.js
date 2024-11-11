@@ -35,7 +35,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
   }
   // iPad 我的页面
   if (obj?.data?.ipad_recommend_sections?.length > 0) {
-    const itemList = [789, 790]; // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏
+    const itemList = [789, 790, 791, 792, 793]; // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏
     obj.data.ipad_recommend_sections = obj.data.ipad_recommend_sections.filter((i) => itemList?.includes(i.id));
   }
   if (obj?.data?.ipad_more_sections?.length > 0) {
