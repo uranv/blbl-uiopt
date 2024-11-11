@@ -54,9 +54,9 @@ if (url.includes("/x/resource/show/tab/v2")) {
         if (item?.style === 1 || item?.style === 2) {
           if (item?.title) {
             if (item?.title === "创作中心") {  // 创作中心
-              if (item?.title) {
-                delete item.title;
-              }
+              \\if (item?.title) {
+                \\delete item.title;
+              \\}
               if (item?.items?.length > 0) {
                 let newItems = [];
                 for (let i of item.items) {
@@ -73,9 +73,9 @@ if (url.includes("/x/resource/show/tab/v2")) {
               continue; //推荐服务
             }
             else if (item?.title === "更多服务") {
-              if (item?.title) {
-                delete item.title;
-              }
+              \\if (item?.title) {
+                \\delete item.title;
+              \\}
               if (item?.items?.length > 0) {
                 let newItems = [];
                 for (let i of item.items) {
