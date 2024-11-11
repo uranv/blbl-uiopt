@@ -1,5 +1,6 @@
 // 脚本引用 https://raw.githubusercontent.com/RuCu6/Loon/main/Scripts/bilibili/json.js
 // 2024-11-08 12:30
+// modified by uranv at 2024-11-12
 
 const url = $request.url;
 if (!$response.body) $done({});
@@ -29,7 +30,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
   }
 } else if (url.includes("/x/v2/account/mine")) {
   // 我的页面
-  const del = ["ipad_upper_sections", "rework_v1", "vip_section", "vip_section_v2"];
+  const del = ["rework_v1", "vip_section", "vip_section_v2"]; // "ipad_upper_sections",
   for (let i of del) {
     delete obj.data[i]; // 不必要项目
   }
