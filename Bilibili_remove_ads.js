@@ -30,7 +30,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
   }
 } else if (url.includes("/x/v2/account/mine")) {
   // 我的页面
-  const del = ["rework_v1", "vip_section", "vip_section_v2"]; // "ipad_upper_sections",
+  const del = ["rework_v1", "vip_section", "vip_section_v2"]; // 保留了投稿中心 "ipad_upper_sections",
   for (let i of del) {
     delete obj.data[i]; // 不必要项目
   }
