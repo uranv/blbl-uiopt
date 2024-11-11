@@ -54,16 +54,16 @@ if (url.includes("/x/resource/show/tab/v2")) {
         if (item?.style === 1 || item?.style === 2) {
           if (item?.title) {
             if (item?.title === "创作中心") {  // 创作中心
-              //if (item?.title) {
-                //delete item.title;
-              //}
+              if (item?.title) {
+                delete item.title;
+              }
               if (item?.items?.length > 0) {
                 let newItems = [];
                 for (let i of item.items) {
-                  if (/user_center\/upload_manager\/upload_manager/g.test(i?.uri)) {
+                  //if (/user_center\/upload_manager\/upload_manager/g.test(i?.uri)) {
                     newItems.push(i); 
-                  } else {
-                    continue;
+                  //} else {
+                    //continue;
                   }
                 }
                 item.items = newItems;
