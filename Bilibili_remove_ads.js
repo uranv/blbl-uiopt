@@ -55,7 +55,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
           if (item?.title) {
             if (item?.title === "创作中心") {  // 创作中心
               if (item?.title) {  //保留标题
-                continue;
+                return;
                 //delete item.title;
               }
               else if (item?.items?.length > 0 && item.items[5]) {  //保留创作中心/稿件管理/主播中心/直播数据凑成一行
