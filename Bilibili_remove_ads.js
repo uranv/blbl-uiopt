@@ -60,7 +60,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
               if (item?.items?.length > 0) {
                 let newItems = [];
                 for (let i of item.items) {
-                  if (/user_center\/upload_manager/g.test(i?.uri)) {
+                  if (/user_center\/upload_manager\/upload_manager/g.test(i?.uri)) {
                     newItems.push(i); 
                   } else {
                     continue;
