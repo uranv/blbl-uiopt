@@ -58,11 +58,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
                 delete item.title;
               }
               if (item?.items?.length > 0) {
-                let newItems = [];
-                for (let i of item.items) {
-                  newItems.push(i);
-                }
-                item.items = newItems;
+                item.items = [item.items[0], item.items[4]].filter(Boolean);
               }
             }
             else if (item?.title === "推荐服务") {  // 推荐服务
