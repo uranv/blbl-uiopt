@@ -54,7 +54,16 @@ if (url.includes("/x/resource/show/tab/v2")) {
         if (item?.style === 1 || item?.style === 2) {
           if (item?.title) {
             if (item?.title === "创作中心") {  // 创作中心
-              continue; 
+              if (item?.title) {
+                delete item.title;
+              }
+              if (item?.items?.length > 0) {
+                let newItems = [];
+                for (let i of item.items) {
+                  newItems.push(i);
+                }
+                item.items = newItems;
+              }
             }
             else if (item?.title === "推荐服务") {  // 推荐服务
               continue;
