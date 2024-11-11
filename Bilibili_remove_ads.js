@@ -54,20 +54,23 @@ if (url.includes("/x/resource/show/tab/v2")) {
         if (item?.style === 1 || item?.style === 2) {
           if (item?.title) {
             if (item?.title === "创作中心") {  // 创作中心
-              if (item?.title) {
-                delete item.title;
+              //if (item?.title) {
+                //delete item.title;
+              //}
+              if (item?.items?.length > 0 && item.items[5]) {
+                item.items = [item.items[0], item.items[1], item.items[5], item.items[6]].filter(Boolean);
               }
-              if (item?.items?.length > 0) {
-                item.items = [item.items[0], item.items[4]].filter(Boolean);
+              else {
+                continue;
               }
             }
             else if (item?.title === "推荐服务") {  // 推荐服务
               continue;
             }
             else if (item?.title === "更多服务") {
-              if (item?.title) {
-                delete item.title;
-              }
+              //if (item?.title) {
+                //delete item.title;
+              //}
               if (item?.items?.length > 0) {
                 let newItems = [];
                 for (let i of item.items) {
