@@ -45,8 +45,11 @@ if (url.includes("/x/resource/show/tab/v2")) {
   }
   // iPhone 我的页面
   if (obj?.data?.sections_v2?.length > 0) {
+    console.log("Properties in each item of obj.data.sections_v2:"); //输出变量名
     let newSects = [];
     for (let item of obj.data.sections_v2) {
+      const propertyNames = Object.keys(item);  //输出变量名
+      console.log(propertyNames);  //输出变量名
       if (item?.button) {
         delete item.button;
       }
@@ -54,10 +57,9 @@ if (url.includes("/x/resource/show/tab/v2")) {
         if (item?.style === 1 || item?.style === 2) {
           if (item?.title) {
             if (item?.title === "创作中心") {  // 创作中心
-              if (item?.title) {
-                //item.items = [item.items[0]].filter(Boolean);
-                delete item.title;
-              }
+              //if (item?.title) {
+                //delete item.title;
+              //}
               if (item?.items?.length > 0 && item.items[5]) {  //保留创作中心/稿件管理/主播中心/直播数据凑成一行
                 item.items = [item.items[0], item.items[1], item.items[5], item.items[6]].filter(Boolean);
                 //continue;
