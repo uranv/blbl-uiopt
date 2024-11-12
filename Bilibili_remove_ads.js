@@ -46,12 +46,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
   // iPhone 我的页面
   if (obj?.data?.sections_v2?.length > 0) {
     let newSects = [];
-    for (let item of obj.data.sections_v2) {
-    
-      const propertyNames = Object.keys(item);  //输出变量名
-      //console.log(propertyNames);  //输出变量名
-      persistentStore.write("prop_sections_v2:",propertyNames)  //输出变量名
-      
+    for (let item of obj.data.sections_v2) {      
       if (item?.button) {
         delete item.button;
       }
