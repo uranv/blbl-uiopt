@@ -7,16 +7,7 @@ if (!$response.body) $done({});
 let obj = JSON.parse($response.body);
 
 // 全局参数
-var mpcfg = (() => {
-    switch (typeof $argument) {
-        case "string":
-            return JSON.parse($argument);
-        case "object":
-            return $argument || {};
-        default:
-            return {};
-    }
-})();
+var mpcfg = JSON.parse($argument);
 
 if (url.includes("/x/resource/show/tab/v2")) {
   // 底部选项卡
