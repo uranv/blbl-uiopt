@@ -2,3 +2,4 @@
 var cfg = $argument;
 console.log(cfg.test_var)
 console.log(cfg.test_var === "minimum")
+console.log(cfg.test_var !== "all")
