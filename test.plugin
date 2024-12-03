@@ -10,7 +10,7 @@
 #!date=2024-12-03
 
 [Argument]
-test_var=select,"all","creator","minimum",tag=for test only.
+testVar=select,"all","creator","minimum",tag=for test only.
 
 [Rule]
 URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH",REJECT-DICT
