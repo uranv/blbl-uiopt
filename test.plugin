@@ -1,0 +1,14 @@
+#!name=测试用插件
+#!desc=测试用
+#!author=uranv[https://github.com/uranv]
+#!system=iOS,iPadOS
+#!system_version=15
+#!loon_version=3.2.1(749)
+#!homepage=https://github.com/uranv/blbl-uiopt
+#!date=2024-12-03
+
+[Argument]
+test_var=select,"all","creator","minimum",tag=for test only.
+
+[Script]
+script-path = https://raw.githubusercontent.com/uranv/blbl-uiopt/refs/heads/main/test.js, requires-body = true, argument=[{test}], tag = 测试用脚本
