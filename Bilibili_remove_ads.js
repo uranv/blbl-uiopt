@@ -1,13 +1,12 @@
 // 脚本引用 https://raw.githubusercontent.com/RuCu6/Loon/main/Scripts/bilibili/json.js
 // 2024-11-08 12:30
 // modified by uranv at 2024-12-03
+// 全局参数
+var mpcfg = JSON.parse($argument);
 
 const url = $request.url;
 if (!$response.body) $done({});
 let obj = JSON.parse($response.body);
-
-// 全局参数
-var mpcfg = JSON.parse($argument);
 
 if (url.includes("/x/resource/show/tab/v2")) {
   // 底部选项卡
