@@ -1,14 +1,24 @@
 #!name=测试用插件
 #!desc=测试用
 #!author=uranv[https://github.com/uranv]
+#!tag=测试
 #!system=iOS,iPadOS
 #!system_version=15
 #!loon_version=3.2.1(749)
 #!homepage=https://github.com/uranv/blbl-uiopt
+#!icon=https://avatars.githubusercontent.com/u/168523312
 #!date=2024-12-03
 
 [Argument]
 test_var=select,"all","creator","minimum",tag=for test only.
+
+[Rule]
+URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH",REJECT-DICT
+URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
+
+[Rewrite]
+# 开屏广告
+^https:\/\/(?:api\.bilibili\.com\/x\/mengqi\/v1\/resource|app\.bilibili\.com\/x\/resource\/peak\/download) reject-dict
 
 [Script]
 script-path = https://raw.githubusercontent.com/uranv/blbl-uiopt/refs/heads/main/test.js, requires-body = true, argument=[{test}], tag = 测试用脚本
