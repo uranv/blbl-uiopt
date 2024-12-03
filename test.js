@@ -1,5 +1,5 @@
 // modified by uranv at 2024-11-12
-var cfg = $argument;
-console.log(cfg.test_var)
-console.log(cfg.test_var === "minimum")
-console.log(cfg.test_var !== "all")
+var mycfg = $argument;
+console.log(mycfg.test_var)
+console.log(mycfg.test_var === "minimum")
+console.log(mycfg.test_var !== "all")
