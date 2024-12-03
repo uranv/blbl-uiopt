@@ -3,6 +3,7 @@
 // modified by uranv at 2024-12-03
 // 全局参数
 var mpcfg = $argument;
+console.log(mpcfg.mypageconfig)
 
 const url = $request.url;
 if (!$response.body) $done({});
