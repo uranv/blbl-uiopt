@@ -4,6 +4,7 @@
 // 全局参数
 var mpcfg = $argument;
 console.log(mpcfg.mypageconfig)
+console.log(mpcfg.mypageconfig === "minimum")
 
 const url = $request.url;
 if (!$response.body) $done({});
