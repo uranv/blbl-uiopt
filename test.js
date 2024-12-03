@@ -1,5 +1,5 @@
-// modified by uranv at 2024-11-12
+// modified by uranv at 2024-12-03
 
 console.log($argument)
-console.log($argument.test_var === "minimum")
-console.log($argument.test_var !== "all")
+console.log($argument.testVar === "minimum")
+console.log($argument.testVar !== "all")
