@@ -2,7 +2,7 @@
 // 2024-11-08 12:30
 // modified by uranv at 2024-12-03
 // 全局参数
-var mpcfg = JSON.parse($argument);
+var mpcfg = $argument;
 
 const url = $request.url;
 if (!$response.body) $done({});
