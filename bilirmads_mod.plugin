@@ -74,7 +74,7 @@ http-response ^https:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab) 
 http-response ^https:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom\? script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除直播间广告
 
 # 精简我的页面[修改]
-http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) script-path = https://raw.githubusercontent.com/uranv/blbl-uiopt/refs/heads/main/Bilibili_remove_ads.js, requires-body = true, argument=[{mypageconfig, vipconfig}], tag = 精简我的页面
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) script-path = https://raw.githubusercontent.com/uranv/blbl-uiopt/refs/heads/main/Bilibili_remove_ads.js, requires-body = true, argument=[{mypageconfig}, {vipconfig}], tag = 精简我的页面
 
 [MitM]
 hostname=ap?.bilibili.com,grpc.biliapi.net,www.bilibili.com,m.bilibili.com,*live.bilibili.com
