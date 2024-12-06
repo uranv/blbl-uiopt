@@ -14,7 +14,7 @@ const del = mpcfg.mypageconfig === "creator"
 const iPadRecommend = mpcfg.mypageconfig === "creator" 
     ? [789, 790, 791, 792] 
     : mpcfg.mypageconfig === "minimum" 
-    ? [797, 798]
+    ? [789, 790]
     : [789, 790, 791, 792, 793, 794, 2542];
 const iPadMore = mpcfg.mypageconfig === "all" 
     ? [797, 798, 1070] 
