@@ -4,7 +4,7 @@
 // 设置参数
 var mpcfg = $argument;
 console.log(mpcfg.mypageconfig);
-console.log(mpcfg.mypageconfig === "minimum");
+console.log(mpcfg.vipconfig);
 // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏；797我的客服 798设置 1070青少年守护
 const del = mpcfg.mypageconfig === "creator" 
     ? ["rework_v1", "vip_section", "vip_section_v2"] 
@@ -100,7 +100,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
     }
     obj.data.sections_v2 = newSects
   }
-  if (obj?.data?.vip) {  // 非会员开启本地会员标识
+  if (obj?.data?.vip && mpcfg.vipconfig === "seton") {  // 非会员开启本地会员标识
     if (obj?.data?.vip?.status === 0) {
       obj.data.vip_type = 2;
       obj.data.vip.type = 2;
@@ -121,7 +121,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
     }
   }
 } else if (url.includes("/x/v2/account/myinfo")) {  // 非会员开启会员专属清晰度
-  if (obj?.data?.vip) {
+  if (obj?.data?.vip && mpcfg.vipconfig === "seton") {
     if (obj?.data?.vip?.status === 0) {
       obj.data.vip.type = 2;
       obj.data.vip.status = 1;

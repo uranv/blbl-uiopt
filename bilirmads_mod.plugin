@@ -13,7 +13,7 @@
 [Argument]
 showUpList=select,"auto","true","false",tag=[动态]中[最常访问]的显示方式,desc=auto：仅当列表中存在直播状态时显示；true：始终显示；false：始终隐藏。
 mypageconfig=select,"all","creator","minimum",tag=[我的]中显示哪些选项,desc=all：显示全部；creator：显示创作中心有关选项；minimum：仅显示最基本项目。
-
+vipconfig=select,"seton","setoff",tag=[大会员]本地相关设置
 [Rule]
 URL-REGEX,"^http:\/\/upos-sz-static\.bilivideo\.com\/ssaxcode\/\w{2}\/\w{2}\/\w{32}-1-SPLASH",REJECT-DICT
 URL-REGEX,"^http:\/\/[\d\.]+:8000\/v1\/resource\/\w{32}-1-SPLASH",REJECT-DICT
@@ -74,7 +74,7 @@ http-response ^https:\/\/api\.bilibili\.com\/pgc\/page\/(?:bangumi|cinema\/tab) 
 http-response ^https:\/\/api\.live\.bilibili\.com\/xlive\/app-room\/v1\/index\/getInfoByRoom\? script-path=https://kelee.one/Resource/Script/Bilibili/Bilibili_remove_ads.js,requires-body=true,tag=移除直播间广告
 
 # 精简我的页面[修改]
-http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) script-path = https://raw.githubusercontent.com/uranv/blbl-uiopt/refs/heads/main/Bilibili_remove_ads.js, requires-body = true, argument=[{mypageconfig}], tag = 精简我的页面
+http-response ^https:\/\/app\.bilibili\.com\/x\/v2\/account\/(?:mine|myinfo) script-path = https://raw.githubusercontent.com/uranv/blbl-uiopt/refs/heads/main/Bilibili_remove_ads.js, requires-body = true, argument=[{mypageconfig, vipconfig}], tag = 精简我的页面
 
 [MitM]
 hostname=ap?.bilibili.com,grpc.biliapi.net,www.bilibili.com,m.bilibili.com,*live.bilibili.com
