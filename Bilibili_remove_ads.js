@@ -5,16 +5,20 @@
 var mpcfg = $argument;
 console.log(mpcfg.mypageconfig);
 console.log(mpcfg.mypageconfig === "minimum");
-if (mpcfg.mypageconfig === "creator") {
-  const del = ["rework_v1", "vip_section", "vip_section_v2"];
 // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏；797我的客服 798设置 1070青少年守护
-  const iPadRecommend = [789, 790, 791, 792];
-  const iPadMore = [797, 798]
-} else if (mpcfg.mypageconfig === "minimum") {
-  const del = ["ipad_upper_sections", "rework_v1", "vip_section", "vip_section_v2"];
-  const iPadRecommend = [789, 790];
-  const iPadMore = [797, 798]
-}
+const del = mpcfg.mypageconfig === "creator" 
+    ? ["rework_v1", "vip_section", "vip_section_v2"] 
+    : mpcfg.mypageconfig === "minimum" 
+    ? ["ipad_upper_sections", "rework_v1", "vip_section", "vip_section_v2"]
+    : [];
+const iPadRecommend = mpcfg.mypageconfig === "creator" 
+    ? [789, 790, 791, 792] 
+    : mpcfg.mypageconfig === "minimum" 
+    ? [797, 798]
+    : [789, 790, 791, 792, 793, 794, 2542];
+const iPadMore = mpcfg.mypageconfig === "all" 
+    ? [797, 798, 1070] 
+    : [797, 798];
 console.log(del);
 console.log(iPadRecommend);
 console.log(iPadMore);
