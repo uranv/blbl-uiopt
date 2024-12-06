@@ -3,18 +3,21 @@
 // modified by uranv at 2024-12-06
 // 设置参数
 var mpcfg = $argument;
-console.log(mpcfg.mypageconfig) console.log(mpcfg.mypageconfig === "minimum")
+console.log(mpcfg.mypageconfig); 
+console.log(mpcfg.mypageconfig === "minimum");
 if (mpcfg.mypageconfig === "creator") {
   const del = ["rework_v1", "vip_section", "vip_section_v2"];
 // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏；797我的客服 798设置 1070青少年守护
   const iPadRecommend = [789, 790, 791, 792];
-  const iPadMore = [797, 798]
+  const iPadMore = [797, 798];
 } else if (mpcfg.mypageconfig === "minimum") {
   const del = ["ipad_upper_sections", "rework_v1", "vip_section", "vip_section_v2"];
   const iPadRecommend = [789, 790];
-  const iPadMore = [797, 798]
+  const iPadMore = [797, 798];
 }
-console.log(del) console.log(iPadRecommend) console.log(iPadMore)
+console.log(del);
+console.log(iPadRecommend);
+console.log(iPadMore);
 // ==========
 const url = $request.url;
 if (!$response.body) $done({});
@@ -22,33 +25,33 @@ let obj = JSON.parse($response.body);
 if (url.includes("/x/resource/show/tab/v2")) {
   if (obj?.data?.bottom?.length > 0) {  // 底部选项卡
     const sortLists = ["首页", "动态", "我的"];
-    obj.data.bottom = obj.data.bottom.filter((i) => sortLists?.includes(i?.name)).sort((a, b) => sortLists.indexOf(a?.name) - sortLists.indexOf(b?.name))
+    obj.data.bottom = obj.data.bottom.filter((i) => sortLists?.includes(i?.name)).sort((a, b) => sortLists.indexOf(a?.name) - sortLists.indexOf(b?.name));
   }
   if (obj?.data?.tab?.length > 0) {  // 首页导航栏
     const sortLists = ["推荐", "热门", "动画", "影视", "直播"];
-    obj.data.tab = obj.data.tab.filter((i) => sortLists?.includes(i?.name)).sort((a, b) => sortLists.indexOf(a?.name) - sortLists.indexOf(b?.name))
+    obj.data.tab = obj.data.tab.filter((i) => sortLists?.includes(i?.name)).sort((a, b) => sortLists.indexOf(a?.name) - sortLists.indexOf(b?.name));
   }
   if (obj?.data?.top?.length > 0) {  // 右上角按钮
     obj.data.top = obj.data.top.filter((i) => i?.name === "消息");
     if (obj?.data?.top?.[0]?.pos) {
-      obj.data.top[0].pos = 1
+      obj.data.top[0].pos = 1;
     }
   }
 } else if (url.includes("/x/v2/account/mine")) {
   for (let i of del) {  // 我的页面
-    delete obj.data[i]
+    delete obj.data[i];
   }
   if (obj?.data?.ipad_recommend_sections?.length > 0 && mpcfg.mypageconfig !== "all") {  // iPad 我的页面
-    obj.data.ipad_recommend_sections = obj.data.ipad_recommend_sections.filter((i) => iPadRecommend?.includes(i.id))
+    obj.data.ipad_recommend_sections = obj.data.ipad_recommend_sections.filter((i) => iPadRecommend?.includes(i.id));
   }
   if (obj?.data?.ipad_more_sections?.length > 0 && mpcfg.mypageconfig !== "all") {
-    obj.data.ipad_more_sections = obj.data.ipad_more_sections.filter((i) => iPadMore?.includes(i.id))
+    obj.data.ipad_more_sections = obj.data.ipad_more_sections.filter((i) => iPadMore?.includes(i.id));
   }
   if (obj?.data?.sections_v2?.length > 0 && mpcfg.mypageconfig !== "all") {  // iPhone 我的页面
     let newSects = [];
     for (let item of obj.data.sections_v2) {
       if (item?.button) {
-        delete item.button
+        delete item.button;
       }
       if (item?.style) {
         if (item?.style === 1 || item?.style === 2) {
@@ -56,42 +59,42 @@ if (url.includes("/x/resource/show/tab/v2")) {
             if (item?.title === "创作中心") {  // 创作中心
               if (mpcfg.mypageconfig === "creator") {
                 if (item?.items?.length > 0 && item.items[5]) {
-                  item.items = [item.items[0], item.items[1], item.items[5], item.items[6]].filter(Boolean)
+                  item.items = [item.items[0], item.items[1], item.items[5], item.items[6]].filter(Boolean);
                 } else {
-                  continue
+                  continue;
                 }
               }
               if (mpcfg.mypageconfig === "minimum") {
-                continue
+                continue;
               }
             } else if (item?.title === "推荐服务") {  // 推荐服务
-              continue
+              continue;
             } else if (item?.title === "更多服务") {  // 更多服务
               if (item?.title && mpcfg.mypageconfig === "minimum") {
-                delete item.title
+                delete item.title;
               }
               if (item?.items?.length > 0) {
                 let newItems = [];
                 for (let i of item.items) {
                   if (/user_center\/feedback/g.test(i?.uri)) {
-                    newItems.push(i)  // 联系客服
+                    newItems.push(i);  // 联系客服
                   } else if (/user_center\/setting/g.test(i?.uri)) {
-                    newItems.push(i)  // 设置
+                    newItems.push(i);  // 设置
                   } else {
-                    continue  // 其他style
+                    continue;  // 其他style
                   }
                 }
-                item.items = newItems
+                item.items = newItems;
               }
             }
           }
         } else {
-          continue
+          continue;
         }
       }
-      newSects.push(item)
+      newSects.push(item);
     }
-    obj.data.sections_v2 = newSects
+    obj.data.sections_v2 = newSects;
   }
   if (obj?.data?.vip) {  // 非会员开启本地会员标识
     if (obj?.data?.vip?.status === 0) {
@@ -110,7 +113,7 @@ if (url.includes("/x/resource/show/tab/v2")) {
         image: "https://i0.hdslb.com/bfs/vip/8d4f8bfc713826a5412a0a27eaaac4d6b9ede1d9.png"
       };
       obj.data.vip.nickname_color = "#FB7299";
-      obj.data.vip.role = 3
+      obj.data.vip.role = 3;
     }
   }
 } else if (url.includes("/x/v2/account/myinfo")) {  // 非会员开启会员专属清晰度
@@ -119,42 +122,42 @@ if (url.includes("/x/resource/show/tab/v2")) {
       obj.data.vip.type = 2;
       obj.data.vip.status = 1;
       obj.data.vip.due_date = 3818419199;
-      obj.data.vip.role = 3
+      obj.data.vip.role = 3;
     }
   }
 } else if (url.includes("/x/v2/feed/index")) {  // 首页推荐信息流
   if (obj?.data?.config?.toast?.has_toast) {
-    obj.data.config.toast.has_toast = false  // 首页刷新通知
+    obj.data.config.toast.has_toast = false;  // 首页刷新通知
   }
   if (obj?.data?.items?.length > 0) {  // 白名单
     let newItems = [];
     for (let item of obj.data.items) {
       if (item?.goto === "av") {  // 常规模式
         if (item?.card_goto === "av") {
-          newItems.push(item)
+          newItems.push(item);
         } else {
-          continue
+          continue;
         }
       } else if (item?.goto === "vertical_av") {
         if (item?.card_goto === "av" || item?.card_goto === "vertical_av") {
           if (item?.creative_entrance) {
-            item.creative_entrance = {}  // 推荐话题搜索框
+            item.creative_entrance = {};  // 推荐话题搜索框
           }
           if (item?.scroll_guide) {
-            item.scroll_guide = {}  // 上滑观看提示
+            item.scroll_guide = {};  // 上滑观看提示
           }
           if (item?.story_cart_icon) {
-            item.story_cart_icon = {}  // 相关话题图标
+            item.story_cart_icon = {};  // 相关话题图标
           }
-          newItems.push(item)
+          newItems.push(item);
         } else {
-          continue
+          continue;
         }
       } else {
-        continue
+        continue;
       }
     }
-    obj.data.items = newItems
+    obj.data.items = newItems;
   }
 } else if (url.includes("/x/v2/search/square")) {  // 搜索框
   if (obj?.data) {
@@ -162,29 +165,29 @@ if (url.includes("/x/resource/show/tab/v2")) {
       type: "history",
       title: "搜索历史",
       search_hotword_revision: 2
-    }
+    };
   }
 } else if (url.includes("/x/v2/splash")) {  // 开屏广告
   if (obj?.data) {
     const item = ["account", "event_list", "preload", "show"];
     item.forEach((i) => {
-      delete obj.data[i]
+      delete obj.data[i];
     });
     if (obj?.data?.max_time) {
-      obj.data.max_time = 0
+      obj.data.max_time = 0;
     }
     if (obj?.data?.min_interval) {
-      obj.data.min_interval = 31536000
+      obj.data.min_interval = 31536000;
     }
     if (obj?.data?.pull_interval) {
-      obj.data.pull_interval = 31536000
+      obj.data.pull_interval = 31536000;
     }
     if (obj?.data?.list?.length > 0) {
       for (let i of obj.data.list) {
         i.duration = 0;
         i.enable_pre_download = false;
         i.begin_time = 3818332800;  // Unix 时间戳 2090-12-31 00:00:00
-        i.end_time = 3818419199  // Unix 时间戳 2090-12-31 23:59:59
+        i.end_time = 3818419199;  // Unix 时间戳 2090-12-31 23:59:59
       }
     }
   }
@@ -193,36 +196,36 @@ if (url.includes("/x/resource/show/tab/v2")) {
     obj.result.modules.forEach((i) => {
       if (i?.style?.startsWith("banner")) {
         if (i?.items?.length > 0) {
-          i.items = i.items.filter((ii) => ii?.link?.includes("play"))
+          i.items = i.items.filter((ii) => ii?.link?.includes("play"));
         }
       } else if (i?.style?.startsWith("function")) {
         if (i?.items?.length > 0) {
-          i.items = i.items.filter((ii) => ii?.blink?.startsWith("bilibili"))
+          i.items = i.items.filter((ii) => ii?.blink?.startsWith("bilibili"));
         }
       } else if ([241, 1283, 1284, 1441]?.includes(i?.module_id)) {
         if (i?.items?.length > 0) {
-          i.items = []
+          i.items = [];
         }
       } else if (i?.style?.startsWith("tip")) {
         if (i?.items?.length > 0) {
-          i.items = []
+          i.items = [];
         }
       }
     })
   }
 } else if (url.includes("/xlive/app-room/v1/index/getInfoByRoom")) {  // 直播
   if (obj?.data?.activity_banner_info) {
-    delete obj.data.activity_banner_info
+    delete obj.data.activity_banner_info;
   }
   if (obj?.data?.shopping_info) {
     obj.data.shopping_info = {
       is_show: 0
-    }
+    };
   }
   if (obj?.data?.new_tab_info?.outer_list?.length > 0) {
-    obj.data.new_tab_info.outer_list = obj.data.new_tab_info.outer_list.filter((i) => i?.biz_id !== 33)
+    obj.data.new_tab_info.outer_list = obj.data.new_tab_info.outer_list.filter((i) => i?.biz_id !== 33);
   }
 }
 $done({
-  body: JSON.stringify(obj)
+  body: JSON.stringify(obj);
 });
