@@ -1,11 +1,26 @@
 // 脚本引用 https://raw.githubusercontent.com/RuCu6/Loon/main/Scripts/bilibili/json.js
 // 2024-11-08 12:30
-// modified by uranv at 2024-12-03
-// 全局参数
+// modified by uranv at 2024-12-06
+
+// 设置
 var mpcfg = $argument;
 console.log(mpcfg.mypageconfig)
 console.log(mpcfg.mypageconfig === "minimum")
-
+// 我的界面
+if (mpcfg.mypageconfig === "creator") {
+  const del = ["rework_v1", "vip_section", "vip_section_v2"];
+  const iPadRecommend = [789, 790, 791, 792]; // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏
+  const iPadMore = [797, 798]; // 797我的客服 798设置 1070青少年守护
+}
+else if (mpcfg.mypageconfig === "minimum") {
+  const del = ["ipad_upper_sections", "rework_v1", "vip_section", "vip_section_v2"];
+  const iPadRecommend = [789, 790]; // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏
+  const iPadMore = [797, 798]; // 797我的客服 798设置 1070青少年守护
+}
+console.log(del)
+console.log(iPadRecommend)
+console.log(iPadMore)
+//==========
 const url = $request.url;
 if (!$response.body) $done({});
 let obj = JSON.parse($response.body);
@@ -34,38 +49,15 @@ if (url.includes("/x/resource/show/tab/v2")) {
   }
 } else if (url.includes("/x/v2/account/mine")) {
   // 我的页面
-  if (mpcfg.mypageconfig === "all") {
-    const del = [];
-  }
-  else if (mpcfg.mypageconfig === "creator") {
-    const del = ["rework_v1", "vip_section", "vip_section_v2"];
-  }
-  else if (mpcfg.mypageconfig === "minimum") {
-    const del = ["ipad_upper_sections", "rework_v1", "vip_section", "vip_section_v2"];
-  }
   for (let i of del) {
     delete obj.data[i]; // 不必要项目
   }
   // iPad 我的页面
-  if (mpcfg.mypageconfig === "creator") {
-    if (obj?.data?.ipad_recommend_sections?.length > 0) {
-      const itemList = [789, 790, 791, 792, 793]; // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏
-      obj.data.ipad_recommend_sections = obj.data.ipad_recommend_sections.filter((i) => itemList?.includes(i.id));
-    }
-    if (obj?.data?.ipad_more_sections?.length > 0) {
-      const itemList = [797, 798]; // 797我的客服 798设置 1070青少年守护
-      obj.data.ipad_more_sections = obj.data.ipad_more_sections.filter((i) => itemList?.includes(i.id));
-    }
+  if (obj?.data?.ipad_recommend_sections?.length > 0 && mpcfg.mypageconfig !== "all") {
+    obj.data.ipad_recommend_sections = obj.data.ipad_recommend_sections.filter((i) => iPadRecommend?.includes(i.id));
   }
-    if (mpcfg.mypageconfig === "minimum") {
-    if (obj?.data?.ipad_recommend_sections?.length > 0) {
-      const itemList = [789, 790]; // 789我的关注 790我的消息 791我的钱包 792直播中心 793大会员 794我的课程 2542我的游戏
-      obj.data.ipad_recommend_sections = obj.data.ipad_recommend_sections.filter((i) => itemList?.includes(i.id));
-    }
-    if (obj?.data?.ipad_more_sections?.length > 0) {
-      const itemList = [797, 798]; // 797我的客服 798设置 1070青少年守护
-      obj.data.ipad_more_sections = obj.data.ipad_more_sections.filter((i) => itemList?.includes(i.id));
-    }
+  if (obj?.data?.ipad_more_sections?.length > 0 && mpcfg.mypageconfig !== "all") {
+    obj.data.ipad_more_sections = obj.data.ipad_more_sections.filter((i) => iPadMore?.includes(i.id));
   }
   // iPhone 我的页面
   if (obj?.data?.sections_v2?.length > 0 && mpcfg.mypageconfig !== "all") {
@@ -77,11 +69,11 @@ if (url.includes("/x/resource/show/tab/v2")) {
       if (item?.style) {
         if (item?.style === 1 || item?.style === 2) {
           if (item?.title) {
-            if (item?.title === "创作中心") {  // 创作中心
+            // 创作中心
+            if (item?.title === "创作中心") {
               if (mpcfg.mypageconfig === "creator") {
                 if (item?.items?.length > 0 && item.items[5]) {  //保留创作中心/稿件管理/主播中心/直播数据凑成一行
                   item.items = [item.items[0], item.items[1], item.items[5], item.items[6]].filter(Boolean);
-                //continue;
                 }
                 else {
                   continue;
@@ -91,13 +83,15 @@ if (url.includes("/x/resource/show/tab/v2")) {
                 continue;
               }
             }
-            else if (item?.title === "推荐服务") {  // 推荐服务
+            // 推荐服务
+            else if (item?.title === "推荐服务") {
               continue;
             }
+            // 更多服务
             else if (item?.title === "更多服务") {
-              //if (item?.title) {
-                //delete item.title;
-              //}
+              if (item?.title && mpcfg.mypageconfig === "minimum") {
+                delete item.title;
+              }
               if (item?.items?.length > 0) {
                 let newItems = [];
                 for (let i of item.items) {
